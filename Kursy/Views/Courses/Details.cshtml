@@ -1,0 +1,78 @@
+﻿@model Kursy.Models.CourseWithUsersViewModel
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+
+@{
+    var adminLoggedIn = Context.Session.GetString("AdminLoggedIn");
+}
+@if (adminLoggedIn == "true")
+{
+    <h1>Szczegóły</h1>
+
+    <div>
+        <h4>Kurs</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @* @Html.DisplayNameFor(model => model.Course.Name) *@
+                Nazwa kursu
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Course.Name)
+            </dd>
+            <dt class="col-sm-3">
+                @* @Html.DisplayNameFor(model => model.Course.Visible) *@
+                Widoczny
+            </dt>
+            
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Course.Visible)
+            </dd>
+        </dl>
+    </div>
+    <h4>Kursanci</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Imię i nazwisko kursanta
+                </th>
+                <th>
+                    E-mail kursanta
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Users != null && Model.Users.Any())
+            {
+                @foreach (var student in Model.Users)
+                {
+                    <tr>
+                        <td>@student.Name</td>
+                        <td>@student.Mail</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">Brak kursantów.</td>
+                        </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+@*        <a asp-action="Edit" asp-route-id="@Model?.Course.Id">Edit</a> |*@
+        <a asp-action="Index">Wróć do listy</a>
+    </div>
+}
+else
+{
+    <h1>Brak dostępu!</h1>
+    <p>Nie jesteś zalogowany jako administrator.</p>
+}
+
+

@@ -1,0 +1,46 @@
+﻿@model Kursy.Models.Course
+
+@{
+    ViewData["Title"] = "Utwórz";
+}
+
+@{
+    var adminLoggedIn = Context.Session.GetString("AdminLoggedIn");
+}
+@if (adminLoggedIn == "true")
+{
+    <h1>Utwórz</h1>
+
+    <h4>Kurs</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Nazwa kursu</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Utwórz" class="btn btn-primary" /> |
+                    <a asp-action="Index">Wróć do listy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    @section Scripts {
+    @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+}
+else
+{
+    <h1>Brak dostępu!</h1>
+    <p>Nie jesteś zalogowany jako administrator.</p>
+}
+
+

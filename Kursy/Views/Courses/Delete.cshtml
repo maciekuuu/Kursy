@@ -1,0 +1,53 @@
+﻿@model Kursy.Models.Course
+
+@{
+    ViewData["Title"] = "Ukryj";
+}
+
+@{
+    var adminLoggedIn = Context.Session.GetString("AdminLoggedIn");
+}
+@if (adminLoggedIn == "true")
+{
+    @if (Model.Visible == true)
+    {
+        <h1>Ukryj</h1>
+    }
+    else
+    {
+        <h1>Przywróć</h1>
+    }
+
+    <div>
+        <h4>Kurs</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @* @Html.DisplayNameFor(model => model.Name) *@
+                Nazwa kursu
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            @if(Model.Visible == true)
+            {
+                <input type="submit" value="Ukryj" class="btn btn-danger" /> 
+            }
+            else{
+            <input type="submit" value="Przywróć" class="btn btn-primary" />
+            } |
+            <a asp-action="Index">Wróć do listy</a>
+        </form>
+    </div>
+}
+else
+{
+    <h1>Brak dostępu!</h1>
+    <p>Nie jesteś zalogowany jako administrator.</p>
+}
+
+

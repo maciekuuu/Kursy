@@ -1,0 +1,61 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Absolwenci";
+}
+
+
+
+
+<div>    
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <img src="@Url.Content(Model.LogoPath)" width="300" height="100" />
+        </div>
+        <div>
+@*            <a href="/Courses/Index">Przejdź do panelu admina</a>*@
+            <a href="/Login/Index">Przejdź do panelu admina</a>
+        </div>
+    </div>
+
+        <p>
+            Oferujemy Państwu dostęp do jednego z dziesięciu kursów e-learningowych rozwijających kompetencje kluczowe na rynku pracy. Zostały one opracowane w ramach projektu
+            <strong>KNOWLEDGE@WORK</strong>. Proszę wpisać swoje dane osobowe, podać adres e-mail i wybrać najbardziej interesujący kurs. We wrześniu zostaną założone konta i wyślemy do Państwa
+            informację o możliwości realizacji kursu.
+        </p>
+
+
+    <form asp-controller="Home" asp-action="Create" method="post">
+        <div style="width: 400px;">
+            <div style="display: flex; justify-content: flex-start; align-items: center;">
+                <label for="imie" style="margin-right: 10px;">Wprowadź imię i nazwisko:</label>
+                <input type="text" id="Name" name="Name" required>
+            </div>
+            <br>
+            <div style="display: flex; justify-content: flex-start; align-items: center;">
+                <label for="email" style="margin-right: 10px;">Wprowadź adres e-mail:</label>
+                <input type="email" id="Mail" name="Mail" required>
+            </div>
+            <br>
+            <div style="display: flex; justify-content: flex-start; align-items: center;">
+                <label for="kurs" style="margin-right: 10px;">Wybierz kurs:</label>
+                <select id="kursId" name="kursId" required>
+                    <option value="">Wybierz</option>
+                @foreach (var course in Model.Courses)
+                {
+                    <option value="@course.Id">@course.Name</option>
+                }
+                </select>
+            </div>
+            <br>
+            <input type="submit" value="Wyślij">
+        </div>
+    </form>
+
+
+
+
+    <p>W razie problemów prosimy o kontakt mailowy z Biurem ds. Jakości Kształcenia  (<a href="https://docs.microsoft.com/aspnet/core">bjk@wlodkowic.pl</a>).</p>
+</div>
+
+
+

@@ -1,0 +1,18 @@
+﻿@model Admin
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        @Html.LabelFor(model => model.Login)
+        @Html.TextBoxFor(model => model.Login)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password)
+    </div>
+
+    <input type="submit" value="Zaloguj" />
+}

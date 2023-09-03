@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Kursy.Models.Course>
+
+@{
+    ViewData["Title"] = "Zarządzanie";
+}
+
+
+@{
+    var adminLoggedIn = Context.Session.GetString("AdminLoggedIn");
+}
+
+@if (adminLoggedIn == "true")
+{
+    <h1>Kursy</h1>
+
+    <p>
+        <a asp-action="Create">Utwórz kurs</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Name) *@
+                    Nazwa kursu
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.Visible) *@
+                    Widoczny
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Visible)
+                    </td>
+                    <td>
+                        |
+                        @if(item.Visible == true)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Ukryj</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Przywróć</a> 
+                        }
+                       | <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>Brak dostępu!</h1>
+    <p>Nie jesteś zalogowany jako administrator.</p>
+}
